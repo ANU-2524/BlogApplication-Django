@@ -17,7 +17,7 @@ Bootstrap-based UI with a clean look
 
 🚀 Getting Started
 1. Clone the repository
-git clone https://github.com/ANU-2524/BlogApplication-Django.git
+git clone https://github.com/ANU-2524/BlogApplication-Django.git and 
 cd BlogApplication-Django
 
 2. Run migrations
