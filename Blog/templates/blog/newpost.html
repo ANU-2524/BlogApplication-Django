@@ -1,0 +1,120 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %} 
+
+<style>
+  /* Background gradient */
+  body {
+    background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Card container */
+  .custom-form-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  .custom-form-container:hover {
+    transform: scale(1.01);
+  }
+
+  /* Headings */
+  h1.fw-bolder {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #007bff, #ff4081);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  h3 label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  /* Inputs */
+  .form-control {
+    border-radius: 12px;
+    border: 1.5px solid #ddd;
+    padding: 15px;
+    font-size: 1rem;
+    transition: 0.3s;
+  }
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0,123,255,0.3);
+  }
+
+  /* Button */
+  .btn-custom {
+    background: linear-gradient(to right, #007bff, #ff4081);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    transition: 0.3s;
+  }
+  .btn-custom:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+</style>
+
+<div class="container custom-container">
+
+  <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 px-3">
+    <a href="/home"><img src="{% static 'image/ph.png' %}" alt=""></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/home">🏠 Home</a>
+          {% comment %} <a class="dropdown-item" href="/newpost">✍️ New Post</a> {% endcomment %}
+          <a class="dropdown-item" href="/mypost">📄 My Posts</a>
+          <a class="dropdown-item" href="/signout">🚪 Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Form -->
+  <form method="POST">
+    {% csrf_token %}
+    <div class="container custom-form-container" style="max-width: 900px;">
+        <h1 class="fw-bolder mb-4">Share Your Thoughts...</h1>
+        <hr><br>
+
+        <div class="mb-4">
+            <h3><label for="title" class="form-label">✨ Title</label></h3>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter an awesome title...">
+        </div>
+
+        <div class="form-group mb-4">
+            <h3><label for="content">📝 Content</label></h3>
+            <textarea class="form-control" id="content" rows="7" name="content" placeholder="Write your thoughts here..."></textarea>
+        </div>
+
+        <div class="text-center">
+          <input class="btn btn-custom" type="submit" value="🚀 Post Now">
+        </div>
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'blog/base.html'%}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .signup-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .signup-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 40px 45px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    width: 100%;
+    max-width: 500px;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .signup-card h2 {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #2c3e50;
+  }
+
+  .form-control {
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #ee0979;
+    box-shadow: 0px 0px 8px rgba(238, 9, 121, 0.6);
+  }
+
+  .btn-signup {
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-signup:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.25);
+  }
+
+  .signup-footer {
+    margin-top: 18px;
+    font-size: 15px;
+    color: #444;
+  }
+
+  .signup-footer a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #ee0979;
+  }
+
+  .signup-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(25px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+
+<div class="signup-container">
+  <div class="signup-card text-center">
+    <h2>Create an Account ✨</h2>
+    <p style="color:#666; margin-bottom:25px;">Join us and start sharing your stories</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" class="form-control" name="uname" placeholder="Enter Your Name" required>
+      <input type="email" class="form-control" name="uemail" placeholder="Enter Your Email" required>
+      <input type="password" class="form-control" name="upassword" placeholder="Enter Password" required>
+
+      <button type="submit" class="btn-signup">Sign Up 🚀</button>
+    </form>
+
+    <div class="signup-footer">
+      Have an account? <a href="loginn">Login here</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

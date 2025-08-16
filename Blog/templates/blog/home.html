@@ -1,0 +1,159 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background: #f7f8fa;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  /* Navbar styling */
+  .navbar {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+  }
+
+  .navbar img {
+    max-height: 50px;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Post Card */
+  .post-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 40px;
+    box-shadow: 0px 8px 24px rgba(0,0,0,0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 12px 30px rgba(0,0,0,0.12);
+  }
+
+  .post-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #666;
+  }
+
+  .post-author {
+    font-weight: 700;
+    color: #2c3e50;
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #000;
+  }
+
+  .post-content {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.7;
+  }
+
+  .post-footer {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .post-footer button {
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .like-btn {
+    background: #f1f1f1;
+  }
+
+  .like-btn:hover {
+    background: #ff6b6b;
+    color: #fff;
+    transform: scale(1.05);
+  }
+
+  .comment-btn {
+    background: #f1f1f1;
+  }
+
+  .comment-btn:hover {
+    background: #1d9bf0;
+    color: #fff;
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="container custom-container">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 px-3">
+    <a href="/home"><img src="{% static 'image/ph.png' %}" alt=""></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/newpost">✍️ New Post</a>
+          <a class="dropdown-item" href="/mypost">📄 My Posts</a>
+          <a class="dropdown-item" href="/signout">🚪 Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Feed -->
+  <div class="container" style="max-width: 900px;">
+    {% for post in posts %}
+      <article class="post-card">
+        <div class="post-meta">
+          <span class="post-author">{{ post.author }}</span>
+          <span>{{ post.date_posted|date:"F d, Y" }}</span>
+        </div>
+        <h2 class="post-title">{{ post.title }}</h2>
+        <p class="post-content">{{ post.content }}</p>
+
+        <!-- Post footer (like, comment buttons) -->
+        <div class="post-footer">
+          <form action="{% url 'like_post' post.id %}" method="POST" style="display:inline;">
+            {%csrf_token%}
+          <button class="like-btn" type="submit">❤️ Like ({{ post.likes.count }})</button>
+            </form>
+         
+        </div>
+      </article>
+    {% empty %}
+      <p class="text-center mt-5">No posts yet. Be the first one to share something ✨</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

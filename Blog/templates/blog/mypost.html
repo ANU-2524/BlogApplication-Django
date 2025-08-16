@@ -1,0 +1,119 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #e0f7fa, #e1bee7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  h1.page-title {
+    font-weight: 800;
+    text-align: center;
+    margin: 40px 0;
+    color: #2c3e50;
+    letter-spacing: 2px;
+  }
+
+  .post-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+    padding: 30px;
+    margin-bottom: 50px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 12px 25px rgba(0,0,0,0.25);
+  }
+
+  .article-metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .article-metadata h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #3498db;
+    margin: 0;
+  }
+
+  .article-metadata h5 {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin: 0;
+  }
+
+  .post-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #2c3e50;
+  }
+
+  .post-content {
+    font-size: 18px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, #3498db, transparent);
+    margin: 15px 0;
+    border: none;
+  }
+</style>
+
+<div class="container custom-container" style="max-width: 1200px;">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light w-100 px-3">
+    <a href="/home"><img src="{% static 'image/ph.png' %}" alt=""></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Profile
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/home">🏠 Home</a>
+          <a class="dropdown-item" href="/newpost">✍️ New Post</a>
+          {% comment %} <a class="dropdown-item" href="/mypost">📄 My Posts</a> {% endcomment %}
+          <a class="dropdown-item" href="/signout">🚪 Sign Out</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container custom-container" style="max-width: 1350px;">
+      <h1 class="page-title">✨ My Posts ✨</h1>
+  
+  <!-- Loop through posts -->
+  {% for post in posts %}
+    <div class="post-card">
+      <div class="article-metadata">
+        <h1>@{{ post.author }}</h1>
+        <h5>{{ post.data_posted|date:"F d, Y" }}</h5>
+      </div>
+      <hr class="divider" />
+      <h2 class="post-title">{{ post.title }}</h2>
+      <p class="post-content">{{ post.content }}</p>
+    </div>
+  {% empty %}
+    <h3 style="text-align:center; color:#7f8c8d;">😢 You haven't posted anything yet!</h3>
+  {% endfor %}
+</div>
+
+{% endblock %}

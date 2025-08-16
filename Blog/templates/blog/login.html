@@ -1,0 +1,114 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 40px 45px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    width: 100%;
+    max-width: 450px;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .login-card img {
+    border-radius: 50%;
+    border: 4px solid #eee;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .login-card h2 {
+    font-weight: 700;
+    margin: 15px 0;
+    color: #2c3e50;
+  }
+
+  .form-control {
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0px 0px 8px rgba(102,126,234,0.6);
+  }
+
+  .btn-login {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-login:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.25);
+  }
+
+  .login-footer {
+    margin-top: 18px;
+    font-size: 15px;
+    color: #444;
+  }
+
+  .login-footer a {
+    text-decoration: none;
+    font-weight: 600;
+    color: #2575fc;
+  }
+
+  .login-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(25px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+
+<div class="login-container">
+  <div class="login-card text-center">
+    <img src="{% static 'image/logo.png' %}" alt="profile" width="120px" class="img-fluid my-3">
+    <h2>Welcome Back 👋</h2>
+    <p style="color:#666; margin-bottom:25px;">Login to continue exploring blogs</p>
+    
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" class="form-control" name="uname" placeholder="Enter Username" required>
+      <input type="password" class="form-control" name="upassword" placeholder="Enter Password" required>
+      
+      <button type="submit" class="btn-login">Login 🚀</button>
+    </form>
+
+    <div class="login-footer">
+      Not Registered? <a href="/">Create an Account</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
